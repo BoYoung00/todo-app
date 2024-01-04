@@ -3,7 +3,7 @@ const person = {
     address: {
         line1: '심곡동',
         city: '부천시',
-        country: '대학민국',
+        country: '대한민국',
     },
     profiles: ['twitter', 'linkedin', 'instagram'],
     printProfile: () => {
