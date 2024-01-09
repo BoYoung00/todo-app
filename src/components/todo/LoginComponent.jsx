@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext, useAuth } from './security/AuthContext';
 
 export default function LoginComponent() {
     const [username, setUsername] = useState('kim')
     const [password, setPassword] = useState('')
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [showErrorMessage, setShowErrorMessage] = useState(false)
+    const authContext = useAuth()
     const navigate = useNavigate();
 
     function handleUsernameChange(event) {
@@ -17,20 +18,16 @@ export default function LoginComponent() {
     }
 
     function handleSubmit() {
-        if(username === 'kim' && password === '123') {
-            setShowSuccessMessage(true)
-            setShowErrorMessage(false)
+        if(authContext.login(username, password)) {
             // /welcome 경로로 이동
             navigate(`/welcome/${username}`)
         } else {
             setShowErrorMessage(true)
-            setShowSuccessMessage(false)
         }
     }
 
     return (
         <div className="Login">
-            {showSuccessMessage && <div className="successMessage">로그인 성공</div>}
             {showErrorMessage && <div className="errorMessage">로그인 실패</div>}
             <div className="LoginForm">
                 <div>
