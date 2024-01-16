@@ -1,10 +1,11 @@
 import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { retrievHelloWorldPathVariable } from './api/HelloWorldApiService'
+import { useAuth } from './security/AuthContext'
 
 export default function WelcomeComponent() {
     const {username} = useParams()
-
+    const authContext = useAuth() // 토근 가져오기
     const [message, setMessage] = useState(null)
 
     function callHelloWorldRestApi() {
@@ -22,7 +23,7 @@ export default function WelcomeComponent() {
         //     .catch( (error) => errorResponse(error))
         //     .finally( () => console.log('cleanup'))
 
-        retrievHelloWorldPathVariable('kim')
+        retrievHelloWorldPathVariable('kim', authContext.token)
             .then((response) => successfulResponse(response)) 
             .catch((error) => errorResponse(error))
             .finally(() => console.log('cleanup'))
@@ -30,7 +31,6 @@ export default function WelcomeComponent() {
 
     function successfulResponse(response) {
         console.log(response)
-        //setMessage(response.data)
         setMessage(response.data.message)
     }
 

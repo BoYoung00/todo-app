@@ -67,7 +67,7 @@ export default function TodoComponent() {
 
         // moment.js 달력
         if(values.targetDate == null || values.targetDate == '' 
-            || moment(values.targetDate).isValid()) { // targetDate 값을 moment 객체로 변환 후에 유효한 날짜인지 확인
+            || !moment(values.targetDate).isValid()) { // targetDate 값을 moment 객체로 변환 후에 유효한 날짜인지 확인
             errors.targetDate = 'Enter a target date'
         }
 

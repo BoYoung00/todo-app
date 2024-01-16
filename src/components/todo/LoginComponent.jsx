@@ -17,8 +17,10 @@ export default function LoginComponent() {
         setPassword(event.target.value)
     }
 
-    function handleSubmit() {
-        if(authContext.login(username, password)) {
+    // 로그인 인증하기까지 비동기로 작업하기 때문에 
+    // handleSubmit 메서드도 비동기
+    async function handleSubmit() {
+        if(await authContext.login(username, password)) {
             // /welcome 경로로 이동
             navigate(`/welcome/${username}`)
         } else {
